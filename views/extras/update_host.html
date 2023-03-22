@@ -1,0 +1,29 @@
+                    
+	<div class="modal-body">
+		<p>Host Information</p>
+		<div class="form-group">
+			<div class="row">
+				<div class="col-md-12">
+					<label>Host Name</label>
+					<input type="text" class="form-control" name="name" value="{{ $host->name }}" data-parsley-required="true">
+					<input type="hidden" name="csrf-token" value="{{ csrf_token(); }}" />
+					<input type="hidden" name="hostid" value="{{ $host->id }}" />
+				</div>
+			</div>
+		</div>
+
+		<div class="form-group">
+			<div class="row">
+				<div class="col-md-12">
+					<label>Host Description</label>
+					<textarea class="form-control" id="host_description" placeholder="Host Description" name="description">{{ $host->description }}</textarea>
+				</div>
+			</div>
+		</div>
+	</div>
+	<div class="modal-footer">
+		<button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+		<button type="submit" class="btn btn-primary">Save Changes</button>
+	</div>
+    
+    <script src="<?=url("");?>assets/js/simcify.min.js"></script>

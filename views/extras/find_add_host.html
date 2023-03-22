@@ -1,0 +1,41 @@
+                    
+	<div class="modal-body">
+		<input type="hidden" name="csrf-token" value="{{ csrf_token(); }}" />
+		<input type="hidden" name="name" value="{{ $hostname }}" />
+
+		<p>Host Information</p>
+		<div class="form-group">
+			<div class="row">
+				<div class="col-md-12">
+					<label>Room Name : </label>
+					<select name="room_id" class="form-control">
+					@foreach($rooms as $room)
+						<option value="{{$room->id}}">{{$room->name}}</option>
+					@endforeach
+					</select>
+				</div>
+			</div>
+		</div>
+
+		<div class="form-group">
+			<div class="row">
+				<div class="col-md-12">
+					<label>Host Name : <span style="color:red">{{$hostname}}</span></label>
+				</div>
+			</div>
+		</div>
+
+		<div class="form-group">
+			<div class="row">
+				<div class="col-md-12">
+					<label>Host Description</label>
+					<textarea class="form-control" id="host_description" placeholder="Host Description" name="description"></textarea>
+				</div>
+			</div>
+		</div>
+	</div>
+	<div class="modal-footer">
+		<button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+		<button type="submit" class="btn btn-primary">Add Host</button>
+	</div>
+
