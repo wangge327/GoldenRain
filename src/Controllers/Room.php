@@ -81,31 +81,33 @@ class Room
         $user = Auth::user();
         $host = Database::table("hosts")->where("host_code", $host_code)->first();
 
+        //$file_path = 'uploads/hosts/DESKTOP-PR0IV3R';
+        //$latest_file = $this->get_latest_file($file_path, "screen");
+
         return view('room/review_host', compact("user", "host"));
     }
 
     public function getLastestHostFileAjax(){
         $file_path = 'uploads/hosts/'.input("host_name");
-        $latest_file = $this->file_sort($file_path, "screen");
-        $newest_file = url("/")."uploads/hosts/" . input("host_name") . "/" . $latest_file[0];
+        $latest_file = $this->get_latest_file($file_path, "screen");
+        $newest_file = url("/")."uploads/hosts/" . input("host_name") . "/" . $latest_file;
         echo $newest_file;
     }
 
-    function file_sort($file_path, $compare_prefix){
+    function get_latest_file($file_path, $compare_prefix){
         $files = scandir($file_path, SCANDIR_SORT_DESCENDING);
+        //print_r($files);
         $return_files = array();
+
         foreach($files as $each_file){
             $check_one_digit1 = explode(".", $each_file);
             $check_one_digit2 = explode($compare_prefix, $check_one_digit1[0]);
-            if(strlen($check_one_digit2[1]) == 1){
-                $return_files[] = $compare_prefix . "0" . $check_one_digit2[1] . "." .$check_one_digit1[1];
-            }
-            else{
-                $return_files[] = $each_file;
-            }
+            $return_files[] = $check_one_digit2[1];
         }
+
         rsort($return_files);
-        return $return_files;
+        $latest_file = $compare_prefix . $return_files[0] . ".jpeg";
+        return $latest_file;
     }
 
     public function createHost()
