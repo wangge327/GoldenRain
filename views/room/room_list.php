@@ -41,7 +41,7 @@
                                 <td>{{count($item->host_data)}}</td>
                                 <td></td>
                                 <td>
-                                    <a class="btn btn-primary" href="<?= url("Room@reviewRoom"); ?>{{$item->id}}">Review</a>
+                                    <a class="btn btn-primary" href="<?= url("Room@reviewRoom"); ?>{{$item->id}}" target="_blank">Review</a>
                                     <a class="btn btn-success send-to-server-click" data="roomid:{{ $item->id }}|table:rooms|csrf-token:{{ csrf_token() }}" url="<?= url("Room@delete"); ?>" warning-title="Are you sure?" warning-message="This Room will be deleted." warning-button="Continue" loader="true" style="float:right">Delete</a>
                                 </td>
                             </tr>
@@ -53,7 +53,7 @@
                                     {{ $host_item->name }}
                                 </td>
                                 <td>
-                                    <a class="btn btn-primary" href="<?= url("Room@reviewHost"); ?>{{$host_item->host_code}}" style="float:right">View PC</a>
+                                    <a class="btn btn-primary" href="<?= url("Room@reviewHost"); ?>{{$host_item->host_code}} " target="_blank" style="float:right">View PC</a>
 
                                 </td>
                             </tr>

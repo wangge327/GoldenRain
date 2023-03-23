@@ -81,12 +81,14 @@ class Room
         $user = Auth::user();
         $host = Database::table("hosts")->where("host_code", $host_code)->first();
 
+        $files = scandir('uploads/hosts/DESKTOP-PR0IV3R', SCANDIR_SORT_DESCENDING);
+        sort($files);
+        print_r($files);
+
         return view('room/review_host', compact("user", "host"));
     }
 
     public function getLastestHostFileAjax(){
-        $host = Database::table("hosts")->where("host_name", input("host_name"))->first();
-
         $files = scandir('uploads/hosts/'.input("host_name"), SCANDIR_SORT_DESCENDING);
         $newest_file = url("/")."uploads/hosts/" . input("host_name") . "/" . $files[0];
         echo $newest_file;
