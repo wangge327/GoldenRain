@@ -154,7 +154,7 @@ Router::group(['exceptionHandler' => Handler::class], function () {
         Router::get('/room/room_list', 'Room@getRoomList');
         Router::get('/room/find_hosts', 'Room@findHosts');
         Router::get('/room/review/{room_id}', 'Room@reviewRoom');
-        Router::get('/room/review_host/{host_id}', 'Room@reviewHost');
+        Router::get('/room/review_host/{host_code}', 'Room@reviewHost');
         Router::post('/room/get_lastest_host_file_ajax', 'Room@getLastestHostFileAjax');
         Router::post('/room/delete', 'Room@delete');
         Router::post('/room/create', 'Room@create');

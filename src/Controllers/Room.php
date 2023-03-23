@@ -58,7 +58,7 @@ class Room
     }
 
     public function findHosts()
-    {
+    {     
         $dirs = array();
         $added_host = array();
         $temp_dirs = array_filter(glob('uploads/hosts/*'), 'is_dir');
@@ -77,10 +77,10 @@ class Room
         return view('room/find_host', compact("user", "dirs"));
     }
 
-    public function reviewHost($host_name){
-        $host = Database::table("hosts")->where("host_code", $host_name)->first();
-
+    public function reviewHost($host_code){
         $user = Auth::user();
+        $host = Database::table("hosts")->where("host_code", $host_code)->first();
+
         return view('room/review_host', compact("user", "host"));
     }
 
