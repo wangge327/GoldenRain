@@ -55,6 +55,7 @@ function delete_last_files($file_path){
         $compare_file_time = date('Y-m-d H:i:s', strtotime($file_time. ' +  1 hours'));
         if($current_time > $compare_file_time){
             echo $current_time."--".$compare_file_time."<br>";
+            echo $full_file_path."<br>";
             //delete_file($full_file_path);
         }
     }
