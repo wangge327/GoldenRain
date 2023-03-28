@@ -13,6 +13,8 @@ $app = new Application();
 $today = date("Y-m-d");
 $current_time = date("Y-m-d H:i:s");
 
+echo $current_time;
+
 $folders = scandir('uploads/hosts', SCANDIR_SORT_DESCENDING);
 $folders = array_values(array_diff($folders, [".", ".." , ".DS_Store"]));
 
