@@ -43,7 +43,6 @@ function delete_old_files($file_path){
 
     for($i = 0 ; $i < count($files)-10 ; $i++){
         delete_file($file_path . "/" . $files[$i]);
-        exit(0);
     }
 }
 
@@ -52,6 +51,6 @@ function delete_file($file_pointer){
         echo ("$file_pointer cannot be deleted due to an error");
     }
     else {
-        echo ("$file_pointer has been deleted");
+        echo ("$file_pointer has been deleted.<br/>");
     }
 }
