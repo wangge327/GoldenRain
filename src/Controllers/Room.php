@@ -82,32 +82,23 @@ class Room
         $host = Database::table("hosts")->where("host_code", $host_code)->first();
 
         //$file_path = 'uploads/hosts/DESKTOP-PR0IV3R';
-        //$latest_file = $this->get_latest_file($file_path, "screen");
+        //$this->get_latest_file($file_path);
 
         return view('room/review_host', compact("user", "host"));
     }
 
     public function getLastestHostFileAjax(){
         $file_path = 'uploads/hosts/'.input("host_name");
-        $latest_file = $this->get_latest_file($file_path, "screen");
+        $latest_file = $this->get_latest_file($file_path);
         $newest_file = url("/")."uploads/hosts/" . input("host_name") . "/" . $latest_file;
         echo $newest_file;
     }
 
-    function get_latest_file($file_path, $compare_prefix){
+    function get_latest_file($file_path){
         $files = scandir($file_path, SCANDIR_SORT_DESCENDING);
-        //print_r($files);
-        $return_files = array();
-
-        foreach($files as $each_file){
-            $check_one_digit1 = explode(".", $each_file);
-            $check_one_digit2 = explode($compare_prefix, $check_one_digit1[0]);
-            $return_files[] = $check_one_digit2[1];
-        }
-
-        rsort($return_files);
-        $latest_file = $compare_prefix . $return_files[0] . ".jpeg";
-        return $latest_file;
+        $files = array_values(array_diff($files, [".", ".." , ".DS_Store"]));
+        usort($files, 'strnatcmp');
+        return end($files);
     }
 
     public function createHost()
