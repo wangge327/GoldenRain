@@ -11,10 +11,10 @@ define("EmailLog",$_SERVER['DOCUMENT_ROOT']."/reminder.log");
 $app = new Application();
 
 //$today = date("Y-m-d");
-//$current_time = date("Y-m-d H:i:s");
+$current_time = date("Y-m-d H:i:s");
 
-$dt = new DateTime("now", new DateTimeZone('America/New_York'));
-$current_time = $dt->format('Y-m-d H:i:s');
+//$dt = new DateTime("now", new DateTimeZone('America/New_York'));
+//$current_time = $dt->format('Y-m-d H:i:s');
 
 
 $folders = scandir('uploads/hosts', SCANDIR_SORT_DESCENDING);
@@ -54,9 +54,9 @@ function delete_last_files($file_path){
         $file_time = date ("Y-m-d H:i:s", filemtime($full_file_path));
         $compare_file_time = date('Y-m-d H:i:s', strtotime($file_time. ' +  1 hours'));
         if($current_time > $compare_file_time){
-            echo $current_time."--".$compare_file_time."<br>";
+            echo $current_time."---".$compare_file_time."<br>";
             echo $full_file_path."<br>";
-            delete_file($full_file_path);
+            //delete_file($full_file_path);
         }
         else{
             echo $current_time."--".$compare_file_time."<br>";
