@@ -10,10 +10,12 @@ define("EmailLog",$_SERVER['DOCUMENT_ROOT']."/reminder.log");
 
 $app = new Application();
 
-$today = date("Y-m-d");
-$current_time = date("Y-m-d H:i:s");
+//$today = date("Y-m-d");
+//$current_time = date("Y-m-d H:i:s");
 
-echo $current_time;
+$dt = new DateTime("now", new DateTimeZone('America/New_York'));
+$current_time = $dt->format('Y-m-d H:i:s');
+
 
 $folders = scandir('uploads/hosts', SCANDIR_SORT_DESCENDING);
 $folders = array_values(array_diff($folders, [".", ".." , ".DS_Store"]));
@@ -25,15 +27,8 @@ foreach($folders as $folder){
         continue;
     }
 
-    /*
-    if( chmod($folder_path, 0777) ) {
-        echo "Changed permission to 0777" .$folder_path;
-    }
-    else
-        echo "Couldn't change folder permission." . $folder_path;
-    */
-
     delete_old_files($folder_path);
+    delete_last_files($folder_path);
 }
 
 function delete_old_files($file_path){
@@ -45,6 +40,23 @@ function delete_old_files($file_path){
 
     for($i = 0 ; $i < count($files)-10 ; $i++){
         delete_file($file_path . "/" . $files[$i]);
+    }
+}
+
+function delete_last_files($file_path){
+    global $current_time;
+    $files = scandir($file_path, SCANDIR_SORT_DESCENDING);
+    $files = array_values(array_diff($files, [".", ".." , ".DS_Store"]));
+    usort($files, 'strnatcmp');
+
+    for($i = 0 ; $i < count($files) ; $i++){
+        $full_file_path = $file_path . "/" . $files[$i];
+        $file_time = date ("Y-m-d H:i:s", filemtime($full_file_path));
+        $compare_file_time = date('Y-m-d H:i:s', strtotime($file_time. ' +  1 hours'));
+        if($current_time > $compare_file_time){
+            echo $current_time."--".$compare_file_time."<br>";
+            //delete_file($full_file_path);
+        }
     }
 }
 
