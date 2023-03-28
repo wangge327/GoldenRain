@@ -18,11 +18,18 @@ $folders = array_values(array_diff($folders, [".", ".." , ".DS_Store"]));
 
 foreach($folders as $folder){
     $folder_path = 'uploads/hosts/' . $folder;
+
+    if(is_file($folder_path)){
+        continue;
+    }
+
+    /*
     if( chmod($folder_path, 0777) ) {
         echo "Changed permission to 0777" .$folder_path;
     }
     else
         echo "Couldn't change folder permission." . $folder_path;
+    */
 
     delete_old_files($folder_path);
 }
@@ -35,7 +42,7 @@ function delete_old_files($file_path){
         return false;
 
     for($i = 0 ; $i < count($files)-10 ; $i++){
-        //delete_file($file_path . "/" . $files[$i]);
+        delete_file($file_path . "/" . $files[$i]);
         exit(0);
     }
 }
