@@ -56,7 +56,7 @@ function delete_last_files($file_path){
         if($current_time > $compare_file_time){
             echo $current_time."--".$compare_file_time."<br>";
             echo $full_file_path."<br>";
-            //delete_file($full_file_path);
+            delete_file($full_file_path);
         }
     }
 }
