@@ -28,8 +28,9 @@ foreach($folders as $folder){
         continue;
     }
 
-    delete_old_files($folder_path);
     delete_last_files($folder_path);
+    delete_old_files($folder_path);
+
 }
 
 function delete_old_files($file_path){
